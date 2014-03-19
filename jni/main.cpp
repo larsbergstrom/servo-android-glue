@@ -78,14 +78,14 @@ static void init_servo()
     setenv("RUST_LOG", "servo", 1);
 
     LOGI("load servo library");
-    void* libservo = android_dlopen("/data/data/com.example.ServoAndroid/lib/libservo.so");
+    void* libservo = android_dlopen("/data/data/com.example.ServoAndroid/lib/libservo-c302e9fb-0.0.so");
     if (libservo == NULL) {
     	LOGW("failed to load servo lib: %s", dlerror());
     	return;
     }
 
     LOGI("load rust-glut library");
-    void* libglut = android_dlopen("/data/data/com.example.ServoAndroid/lib/libglut-102129e09d96658-0.1.so");
+    void* libglut = android_dlopen("/data/data/com.example.ServoAndroid/lib/libglut-f186cebf-0.1.so");
     if (libglut == NULL) {
         LOGW("failed to load rust-glut lib: %s", dlerror());
         return;
@@ -117,7 +117,7 @@ static void init_servo()
     *(void**)(&main) = dlsym(libservo, "android_start");
     if (main) {
         LOGI("go into android_start()");
-        static char* argv[] = {"servo", "/mnt/sdcard/html/demo.html"};
+        static char* argv[] = {"servo", "/sdcard/about-mozilla.html"};
         (*main)(2, argv);
         return;
     }
